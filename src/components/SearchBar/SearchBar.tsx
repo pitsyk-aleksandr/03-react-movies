@@ -8,14 +8,32 @@
 // Імпорт модуля зі стилями компонента
 import styles from "./SearchBar.module.css";
 
+// Імпорт бібліотеки react-hot-toast (Додатково - npm install react-hot-toast)
+// toast - функция вызова уведомления
+import toast from "react-hot-toast";
+
 // Оголошення інтерфейса SearchBarProps, який описує типи для пропсів компонента.
 interface SearchBarProps {
   // Типізація функцій - стандартна (через стрілочну функцію)
-  onSubmit: () => void;
+  onSubmit: (query: string) => void;
 }
 
 // Компонент SearchBar
 export default function SearchBar({ onSubmit }: SearchBarProps) {
+  // Функція - обробник події Submit форми - через Form Action
+  // Отримуємо значення поля <input name="query" />
+  const handleSubmit = (formData: FormData) => {
+    const nameQuery = formData.get("query") as string;
+    // Перевірка значення поля
+    if (nameQuery === "") {
+      // Якщо поле пусте, то виводиться повідомлення про помилку
+      toast.error("Please enter your search query.");
+    } else {
+      // Якщо поле не пусте, то викликається функція з Props з передачею строки запиту
+      onSubmit(nameQuery);
+    }
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -27,7 +45,7 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
         >
           Powered by TMDB
         </a>
-        <form className={styles.form}>
+        <form action={handleSubmit} className={styles.form}>
           <input
             className={styles.input}
             type="text"
