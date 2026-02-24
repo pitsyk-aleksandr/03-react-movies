@@ -20,6 +20,12 @@ import css from "./App.module.css";
 // Імпорт компонента SearchBar
 import SearchBar from "../SearchBar/SearchBar";
 
+// Імпорт компонента ErrorMessage
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+
+// Імпорт компонента ErrorMessage
+import Loader from "../Loader/Loader";
+
 // Імпорт інтерфейса для одного фільму
 import { type Movie } from "../../types/movie";
 
@@ -56,6 +62,8 @@ export default function App() {
 
       <p>Запрос - {query}</p>
       <p>Длина - {movies.length}</p>
+      <ErrorMessage />
+      <Loader />
     </div>
   );
 }

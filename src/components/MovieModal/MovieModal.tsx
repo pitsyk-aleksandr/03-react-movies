@@ -10,13 +10,15 @@
 //      - onClose - функцію закриття модального вікна.
 // ------------------------------------------------------------------------------------------
 
+import type { Movie } from "../../types/movie";
+
 // Імпорт модуля зі стилями компонента
 import css from "./MovieModal.module.css";
 
 // Оголошення інтерфейса MovieModalProps, який описує типи для пропсів компонента.
 interface MovieModalProps {
   // movie - посилання на об’єкт обраного фільма
-  movie;
+  movie: Movie;
   // onClose - функція закриття модального вікна
   // Типізація функцій - стандартна (через стрілочну функцію)
   onClose: () => void;
@@ -24,6 +26,11 @@ interface MovieModalProps {
 
 // Компонент MovieModal
 export default function MovieModal({ movie, onClose }: MovieModalProps) {
+  // ********************
+  console.log(movie);
+  onClose();
+  // ********************
+
   return (
     <div className={css.backdrop} role="dialog" aria-modal="true">
       <div className={css.modal}>

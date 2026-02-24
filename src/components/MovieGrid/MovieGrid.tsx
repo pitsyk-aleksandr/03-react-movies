@@ -18,6 +18,12 @@ interface MovieGridProps {
 
 // Компонент MovieGrid
 export default function MovieGrid({ onSelect, movies }: MovieGridProps) {
+  // **************************
+  movies.map((movie) => {
+    console.log(movie);
+  });
+  onSelect();
+  // ****************************
   return (
     <ul className={css.grid}>
       {/* Набір елементів списку з фільмами */}
