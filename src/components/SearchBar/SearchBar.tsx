@@ -28,10 +28,11 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
     if (nameQuery === "") {
       // Якщо поле пусте, то виводиться повідомлення про помилку
       toast.error("Please enter your search query.");
-    } else {
-      // Якщо поле не пусте, то викликається функція з Props з передачею строки запиту
-      onSubmit(nameQuery);
+      // Вихід з функції
+      return;
     }
+    // Якщо поле не пусте, то викликається функція з Props з передачею строки запиту
+    onSubmit(nameQuery);
   };
 
   return (
