@@ -38,8 +38,9 @@ export async function fetchMovies({
   };
   // Виконуємо HTTP-запит
   const response = await axios.get<MoviesHttpResponse>(url, options);
-
-  // console.log(response);
-  // console.log(response.data);
+  console.log("response");
+  console.log(response);
+  console.log("response.data");
+  console.log(response.data);
   return response.data.results;
 }

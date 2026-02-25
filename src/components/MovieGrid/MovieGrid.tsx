@@ -9,35 +9,42 @@
 // Імпорт модуля зі стилями компонента
 import css from "./MovieGrid.module.css";
 
+// Імпорт інтерфейса для одного фільму
+import type { Movie } from "../../types/movie";
+
 // Оголошення інтерфейса MovieGridProps, який описує типи для пропсів компонента.
 interface MovieGridProps {
   // Типізація функцій - стандартна (через стрілочну функцію)
   onSelect: () => void;
-  movies: [];
+  movies: Movie[];
 }
+
+// Константа для базового URL фото
+const BASE_URL = "https://image.tmdb.org/t/p/";
+const FILE_SIZE = "w500/";
 
 // Компонент MovieGrid
 export default function MovieGrid({ onSelect, movies }: MovieGridProps) {
   // **************************
-  movies.map((movie) => {
-    console.log(movie);
-  });
+
   onSelect();
   // ****************************
   return (
     <ul className={css.grid}>
       {/* Набір елементів списку з фільмами */}
-      <li>
-        <div className={css.card}>
-          <img
-            className={css.image}
-            src="https://image.tmdb.org/t/p/w500/poster-path"
-            alt="movie title"
-            loading="lazy"
-          />
-          <h2 className={css.title}>Movie title</h2>
-        </div>
-      </li>
+      {movies.map((movie) => (
+        <li key={movie.id}>
+          <div className={css.card}>
+            <img
+              className={css.image}
+              src={BASE_URL + FILE_SIZE + movie.poster_path}
+              alt={movie.title}
+              loading="lazy"
+            />
+            <h2 className={css.title}>{movie.title}</h2>
+          </div>
+        </li>
+      ))}
     </ul>
   );
 }
