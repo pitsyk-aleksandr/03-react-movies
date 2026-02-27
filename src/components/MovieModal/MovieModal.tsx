@@ -25,7 +25,7 @@ import css from './MovieModal.module.css';
 // Оголошення інтерфейса MovieModalProps, який описує типи для пропсів компонента.
 interface MovieModalProps {
   // movie - посилання на об’єкт обраного фільма (undefined - якщо не вибраний спочатку)
-  movie: Movie | undefined;
+  movie: Movie | null;
   // onClose - функція закриття модального вікна
   // Типізація функцій - стандартна (через стрілочну функцію)
   onClose: () => void;
@@ -65,39 +65,41 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
   }, [onClose]);
 
   // Створення розмітки компонента в кінці елемента document.body
+  // Умовний рендеринг (movie &&), якщо movie - НЕ null
   return createPortal(
-    <div
-      className={css.backdrop}
-      onClick={handleBackdropClick}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className={css.modal}>
-        <button
-          className={css.closeButton}
-          onClick={onClose}
-          aria-label="Close modal"
-        >
-          &times;
-        </button>
-        {/* Умовний рендеринг (movie &&), якщо movie - НЕ undefined */}
-        <img
-          src={movie && BASE_URL + FILE_SIZE_ORIGINAL + movie.backdrop_path}
-          alt={movie && movie.title}
-          className={css.image}
-        />
-        <div className={css.content}>
-          <h2>{movie && movie.title}</h2>
-          <p>{movie && movie.overview}</p>
-          <p>
-            <strong>Release Date:</strong> {movie && movie.release_date}
-          </p>
-          <p>
-            <strong>Rating:</strong> {movie && movie.vote_average}/10
-          </p>
+    movie && (
+      <div
+        className={css.backdrop}
+        onClick={handleBackdropClick}
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className={css.modal}>
+          <button
+            className={css.closeButton}
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            &times;
+          </button>
+          <img
+            src={BASE_URL + FILE_SIZE_ORIGINAL + movie.backdrop_path}
+            alt={movie.title}
+            className={css.image}
+          />
+          <div className={css.content}>
+            <h2>{movie.title}</h2>
+            <p>{movie.overview}</p>
+            <p>
+              <strong>Release Date:</strong> {movie.release_date}
+            </p>
+            <p>
+              <strong>Rating:</strong> {movie.vote_average}/10
+            </p>
+          </div>
         </div>
       </div>
-    </div>,
+    ),
     document.body
   );
 }

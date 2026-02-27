@@ -40,7 +40,7 @@ export default function App() {
   // Оголошуємо і типизуємо стан - масив фільмів
   const [movies, setMovies] = useState<Movie[]>([]);
   // Оголошуємо і типизуємо стан - один обраний фільм
-  const [movieSelect, setMovieSelect] = useState<Movie>();
+  const [movieSelect, setMovieSelect] = useState<Movie | null>(null);
   // Оголошуємо і типизуємо стан - рендеринг компонента Loader
   const [isLoader, setIsLoader] = useState<boolean>(false);
   // Оголошуємо і типизуємо стан - рендеринг компонента ErrorMessage
@@ -57,7 +57,7 @@ export default function App() {
   };
   const closeModal = () => {
     // Стан - обраний фільм - скинуте
-    setMovieSelect(undefined);
+    setMovieSelect(null);
     // Стан - модальне вікно закрите
     setIsModalOpen(false);
   };
@@ -76,7 +76,7 @@ export default function App() {
       // Змінюємо стан для рендеринга компонента Loader
       setIsLoader(true);
       // Викликаємо функцію пошуку фільмів
-      await fetchMovies({ nameQuery }).then(movies => {
+      await fetchMovies(nameQuery).then(movies => {
         // Якщо в результаті запиту масив фільмів порожній, виводимо повідомлення:
         if (movies.length === 0) {
           toast.error('No movies found for your request');

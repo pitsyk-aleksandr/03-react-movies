@@ -9,11 +9,6 @@ import axios from 'axios';
 // Імпорт інтерфейса для одного фільму
 import { type Movie } from '../types/movie';
 
-// Типізація параметрів функції
-interface fetchMoviesProps {
-  nameQuery: string;
-}
-
 // Типізація відповіді від Axios
 interface MoviesHttpResponse {
   results: Movie[];
@@ -25,9 +20,7 @@ interface MoviesHttpResponse {
 const myKey = import.meta.env.VITE_TMDB_TOKEN;
 const myAuthorization = 'Bearer ' + myKey;
 
-export async function fetchMovies({
-  nameQuery,
-}: fetchMoviesProps): Promise<Movie[]> {
+export async function fetchMovies(nameQuery: string): Promise<Movie[]> {
   const url = `https://api.themoviedb.org/3/search/movie?query=${nameQuery}&include_adult=false&language=en-US&page=1`;
   const options = {
     method: 'GET',
