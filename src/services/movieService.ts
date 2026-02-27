@@ -4,10 +4,10 @@
 // Типізуйте її параметри, результат, який вона повертає, та відповідь від Axios.
 
 // Імпорт бібліотеки axios
-import axios from "axios";
+import axios from 'axios';
 
 // Імпорт інтерфейса для одного фільму
-import { type Movie } from "../types/movie";
+import { type Movie } from '../types/movie';
 
 // Типізація параметрів функції
 interface fetchMoviesProps {
@@ -23,24 +23,25 @@ interface MoviesHttpResponse {
 // Не забуваємо додати .env в файл .gitignore !!!
 // Додатково треба додати в Versel (Settings → Environment Variables)
 const myKey = import.meta.env.VITE_TMDB_TOKEN;
-const myAuthorization = "Bearer " + myKey;
+const myAuthorization = 'Bearer ' + myKey;
 
 export async function fetchMovies({
   nameQuery,
 }: fetchMoviesProps): Promise<Movie[]> {
   const url = `https://api.themoviedb.org/3/search/movie?query=${nameQuery}&include_adult=false&language=en-US&page=1`;
   const options = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      accept: "application/json",
+      accept: 'application/json',
       Authorization: myAuthorization,
     },
   };
   // Виконуємо HTTP-запит
   const response = await axios.get<MoviesHttpResponse>(url, options);
-  console.log("response");
-  console.log(response);
-  console.log("response.data");
-  console.log(response.data);
+  // console.log('response');
+  // console.log(response);
+  // console.log('response.data');
+  // console.log(response.data);
+  // Повертаємо значення results з відповіді
   return response.data.results;
 }
