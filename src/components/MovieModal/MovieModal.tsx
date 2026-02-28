@@ -24,7 +24,7 @@ import css from './MovieModal.module.css';
 
 // Оголошення інтерфейса MovieModalProps, який описує типи для пропсів компонента.
 interface MovieModalProps {
-  // movie - посилання на об’єкт обраного фільма (undefined - якщо не вибраний спочатку)
+  // movie - посилання на об’єкт обраного фільма (null - якщо не вибраний спочатку)
   movie: Movie | null;
   // onClose - функція закриття модального вікна
   // Типізація функцій - стандартна (через стрілочну функцію)
@@ -44,7 +44,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
     }
   };
 
-  // Еффект для перевірки натиску клавіші Esc
+  // Еффект для перевірки натискання клавіші Esc
   useEffect(() => {
     // Обробник події - натискання клавіатури
     const handleKeyDown = (e: KeyboardEvent) => {
